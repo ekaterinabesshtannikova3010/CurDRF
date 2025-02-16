@@ -14,7 +14,6 @@ from datetime import timedelta
 from pathlib import Path
 import os
 
-from django.conf.global_settings import STATICFILES_DIRS
 from dotenv import load_dotenv
 
 # from celery.schedules import crontab
@@ -143,7 +142,7 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 STATIC_URL = '/static'
 STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_DIRS = [BASE_DIR / 'staticfiles',]
+
 
 MEDIA_URL = "/media"
 MEDIA_ROOT = BASE_DIR / "media"

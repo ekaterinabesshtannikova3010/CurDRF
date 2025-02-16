@@ -26,22 +26,14 @@ jobs:
   test:
     needs: lint
     runs-on: ubuntu-latest
-    env: # Передаем переменные во все джобы
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      DEBUG: ${{ secrets.DEBUG }}
-      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
-      POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      REDIS_HOST: ${{ secrets.REDIS_HOST }}
-      REDIS_PORT: ${{ secrets.REDIS_PORT }}
-      CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
-      CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          touch .env
+          echo '"${{ secrets.ENV_FILE }}"' | sed "s/\"//g" > .env # Удаление кавычек в файле. P.S. их не должно быть в секретах
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -67,7 +59,7 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-          echo '"${{ secrets.ENV_FILE }}"' | sed "s/\"//g" > .env # Удаление кавычек в файле. P.S. их не должно быть в секретах
+          echo '"${{ secrets.ENV_FILE }}"' | sed "s/\"//g" > .env
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.8.0

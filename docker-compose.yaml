@@ -3,10 +3,10 @@ services:
     build: .
     command: sh -c "poetry run python manage.py collectstatic --noinput && poetry run gunicorn config.wsgi:application --bind 0.0.0.0:8000"
     volumes:
-      - static_volume:/app/staticfiles
+      - static_volume:/app/static
       - .:/app
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     env_file:
       - .env
     depends_on:
@@ -23,7 +23,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - static_volume:/app/staticfiles
+      - static_volume:/app/static
     depends_on:
       - web
 
@@ -32,7 +32,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5455:5432"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB" ]
       interval: 10s
