@@ -70,5 +70,4 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Copy project files to server
-        run: |
-          sudo rsync -avz --exclude '__pycache__' --exclude '.git' --exclude '.github' . ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_DIR }}
+        run: sudo rsync -avz --exclude '__pycache__' --exclude '.git' --exclude '.github' . ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_DIR }}
