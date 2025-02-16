@@ -98,9 +98,9 @@ class HabitModelTest(TestCase):
         )
         with self.assertRaises(ValidationError) as context:
             pleasant_habit.clean()
-        self.assertIn(
-            "Pleasant habits cannot have 'reward' or 'related_habit'.",
-            str(context.exception),
+        self.assertEqual(
+            "Pleasant habit cannot have \'reward\' or \'related_habit\'.",
+            str(context.exception)[2:-2],
         )
 
     def test_related_habit_is_not_pleasant(self):
