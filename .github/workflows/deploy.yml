@@ -22,5 +22,6 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -l ${{ secrets.SSH_USER }} ${{ secrets.SERVER_IP }}
-          git pull --ff-only https://github.com/ekaterinabesshtannikova3010/CurDRF main
+          cd CurDRF/
+          git pull
           echo '"${{ secrets.ENV_FILE }}"' | sed "s/\"//g" > .env
