@@ -23,4 +23,5 @@ jobs:
         run: |
           ssh -l ${{ secrets.SSH_USER }} ${{ secrets.SERVER_IP }}
           cd ${{ secrets.DEPLOY_DIR }}
-          git pull https://${{secrets.DEPLOY_USER}}:${{secrets.DEPLOY_TOKEN}}@github.com/${{secrets.DEPLOY_REPOSITORY}}.git
+          sudo git pull https://${{secrets.DEPLOY_USER}}:${{secrets.DEPLOY_TOKEN}}@github.com/${{secrets.DEPLOY_REPOSITORY}}.git
+          echo '"${{ secrets.ENV_FILE }}"' | sed "s/\"//g" > .env # Удаление кавычек в файле. P.S. их не должно быть в секретах
