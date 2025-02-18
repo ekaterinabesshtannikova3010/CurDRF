@@ -21,6 +21,6 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -tt ${{ secrets.SSH_USER }}@${{ secrets.SERVER-IP }}
+          ssh -o StrictHostKeyChecking=no --tt ${{ secrets.SSH_USER }}@${{ secrets.SERVER-IP }}
           cd ${{ secrets.DEPLOY_DIR }}
           git pull https://${{secrets.DEPLOY_USER}}:${{secrets.DEPLOY_TOKEN}}@github.com/${{secrets.DEPLOY_REPOSITORY}}.git
