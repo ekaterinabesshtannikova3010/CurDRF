@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -l ${{ secrets.SSH_USER }} ${{ secrets.SERVER_IP }} << 'EOF'
+          ssh -t -l ${{ secrets.SSH_USER }} ${{ secrets.SERVER_IP }} << 'EOF'
           cd ${{ secrets.DEPLOY_DIR }}
           sudo git pull https://${{secrets.DEPLOY_USER}}:${{secrets.DEPLOY_TOKEN}}@github.com/${{secrets.DEPLOY_REPOSITORY}}.git
           echo '"${{ secrets.ENV_FILE }}"' | sed "s/\"//g" > .env
